@@ -9,19 +9,17 @@ os.makedirs(log_dir, exist_ok=True) # Create logs directory if it doesn't exist
 
 class Config:
     """Base configuration settings."""
-    # --- IMPORTANT: Set a Secret Key for JWT ---
-    # Consider using environment variables for production.
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'IHopeIPassThisCourseIHopeIPassThisCourse'
+    SECRET_KEY = os.environ.get('SECRET_KEY')
     
     # --- Central Database Configuration ---
-    DB_HOST = os.environ.get('DB_HOST') or '10.0.116.125'
-    DB_USER = os.environ.get('DB_USER') or 'cs432g2' 
-    DB_PASSWORD = os.environ.get('DB_PASSWORD') or 'sJf9TzKm' 
+    DB_HOST = os.environ.get('DB_HOST')
+    DB_USER = os.environ.get('DB_USER')
+    DB_PASSWORD = os.environ.get('DB_PASSWORD')
     DB_NAME_CIMS = os.environ.get('DB_NAME_CIMS') or 'cs432cims'
     DB_NAME_PROJECT = os.environ.get('DB_NAME_PROJECT') or 'cs432g2'
     GROUP_ID = int(os.environ.get('GROUP_ID', 2)) 
     # --- Default Password for New Users ---
-    DEFAULT_PASSWORD = 'default123'
+    DEFAULT_PASSWORD = os.environ.get('DEFAULT_PASSWORD')
 
     TEAM_MAX_PLAYERS = 12 
     TEAM_MIN_PLAYERS_FOR_MATCH = 6 
@@ -33,4 +31,3 @@ class Config:
 
 # Could add DevelopmentConfig, ProductionConfig classes inheriting from Config
 # but for now, this base class is sufficient.
-

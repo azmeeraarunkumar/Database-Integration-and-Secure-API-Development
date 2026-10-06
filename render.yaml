@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: database-integration-secure-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn run:app
+    healthCheckPath: /
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DB_HOST
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_NAME_CIMS
+        value: cs432cims
+      - key: DB_NAME_PROJECT
+        value: cs432g2
+      - key: GROUP_ID
+        value: "2"
+      - key: DEFAULT_PASSWORD
+        sync: false
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false
+
+  - type: static
+    name: database-integration-secure-frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: build
+    envVars:
+      - key: REACT_APP_API_URL
+        sync: false
